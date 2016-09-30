@@ -61,7 +61,7 @@ public class Helper {
             botones[i].setEnabled(false);
         }
     }
-
+    //Terminada
     public static void letraB(JTable tabla1, JTable tabla2) {
      int nf, nc, aux;
 
@@ -78,7 +78,7 @@ public class Helper {
         }    
     }
 
-
+    //Terminada
     public static void letraK(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -95,7 +95,7 @@ public class Helper {
         }
     }
 
-
+    // Falta Corregirla
     public static void letraM(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -113,7 +113,7 @@ public class Helper {
         }
     }
 
-    //Sin terminar
+    //Falta Hacerla
     public static void letraW(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -129,7 +129,8 @@ public class Helper {
 
             }
         }
-    }//Sin Terminar
+    }
+    //Falta Hacerla
 
     public static void letraQ(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
@@ -148,7 +149,7 @@ public class Helper {
         }
     }
 
-    //Sin terminar
+    //Corregir
     public static void letraJ(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -165,7 +166,7 @@ public class Helper {
             }
         }
     }
-
+    //Corregir
     public static void letraG(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -199,7 +200,7 @@ public class Helper {
             }
         }
     }
-
+    //Figuras malas. falta corregirlas
     public static void figura1(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
