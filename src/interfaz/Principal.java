@@ -311,7 +311,7 @@ public class Principal extends javax.swing.JFrame {
 
         switch (op) {
             case 0:
-                Helper.letraB(tblTablaInicial);
+                Helper.letraB(tblTablaInicial, tblTablaResultado);
                 break;
             case 1:
                 Helper.letraK(tblTablaInicial, tblTablaResultado);

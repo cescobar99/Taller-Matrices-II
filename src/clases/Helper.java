@@ -61,10 +61,21 @@ public class Helper {
             botones[i].setEnabled(false);
         }
     }
-//No saber como hacerla
 
-    public static void letraB(JTable tabla1) {
+    public static void letraB(JTable tabla1, JTable tabla2) {
+     int nf, nc, aux;
 
+        nf = tabla1.getRowCount();
+        nc = tabla1.getColumnCount();
+
+        for (int i = 0; i < nf; i++) {
+            for (int j = 0; j < nc; j++) {
+                aux = (int) tabla1.getValueAt(i, j);
+                if ((j==0)||(i==0 && j!=nc-1)||(i==nf/2 && j!=nc-1)||(i==nf-1 && j!=nc-1)||(j==nc-1 && i!=0 && i!=nf/2 && i!=nf-1)) {
+                    tabla2.setValueAt(aux, i, j);
+                }
+            }
+        }    
     }
 
 
