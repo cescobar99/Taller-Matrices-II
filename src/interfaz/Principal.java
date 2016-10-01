@@ -222,7 +222,7 @@ public class Principal extends javax.swing.JFrame {
                 txtNumeroFilas.setText("");
                 txtNumeroColumnas.setText("");
                 txtNumeroFilas.requestFocusInWindow();
-            } else if (nc <= 5 || nf <= 5) {
+            } else if (nc <= 3 || nf <= 3) {
                 Helper.mensaje(this, "Digite un numero mayor para que las letras se puedan observar mejor", 3);
                 txtNumeroFilas.setText("");
                 txtNumeroColumnas.setText("");
