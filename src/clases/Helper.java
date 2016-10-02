@@ -89,7 +89,7 @@ public class Helper {
         for (int i = 0; i < nf; i++) {
             for (int j = 0; j < nc; j++) {
                 aux = (int) tabla1.getValueAt(i, j);
-                if ((j == 0) || (i == j + 2) || (nf - 1 - i == j + 2)) {
+                if ((i+(j-1)==(nf-1)/2)||(i-(j-1)==(nf-1)/2)||(j==0)) {
                     tabla2.setValueAt(aux, i, j);
                 }
             }
