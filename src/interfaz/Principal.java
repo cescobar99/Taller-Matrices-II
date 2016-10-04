@@ -19,6 +19,8 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+    int nf, nc, n;
+
     public Principal() {
         initComponents();
         JButton botonesH[] = {cmdCrear, cmdLimpiar};
@@ -193,71 +195,34 @@ public class Principal extends javax.swing.JFrame {
     private void cmdCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearActionPerformed
         int nf, nc;
         DefaultTableModel tm, tm2;
-
         if (txtNumeroFilas.getText().trim().isEmpty()) {
-            Helper.mensaje(this, "Por Favor llene el campo Numero de filas", 3);
+            Helper.mensaje(this, "Digite número de filas", 3);
             txtNumeroFilas.requestFocusInWindow();
-
-            JButton botonesH[] = {cmdCrear};
-            Helper.habilitarBotonoes(botonesH);
+        } else if (Integer.parseInt(txtNumeroFilas.getText()) == 0) {
+            Helper.mensaje(this, "Número de filas no puede ser cero", 3);
+            txtNumeroFilas.requestFocusInWindow();
         } else if (txtNumeroColumnas.getText().trim().isEmpty()) {
-            Helper.mensaje(this, "Por Favor llene el campo Numero de Columnas", 3);
+            Helper.mensaje(this, "Digite número de columnas", 3);
             txtNumeroColumnas.requestFocusInWindow();
-
-            JButton botonesH[] = {cmdCrear};
-            Helper.habilitarBotonoes(botonesH);
+        } else if (Integer.parseInt(txtNumeroColumnas.getText()) == 0) {
+            Helper.mensaje(this, "Número de columnas no puede ser cero", 3);
+            txtNumeroColumnas.requestFocusInWindow();
         } else {
-
             nf = Integer.parseInt(txtNumeroFilas.getText());
             nc = Integer.parseInt(txtNumeroColumnas.getText());
-            if (nf == 0) {
-                Helper.mensaje(this, "No puede ser cero", 3);
-                txtNumeroFilas.requestFocusInWindow();
-                txtNumeroFilas.selectAll();
-            } else if (nc == 0) {
-                Helper.mensaje(this, "No puede ser cero", 3);
-                txtNumeroColumnas.selectAll();
-            } else if (nc != nf) {
-                Helper.mensaje(this, "Digite el numero de filas y columnas iguales, para obtener una matriz mejor presentada", 3);
-                txtNumeroFilas.setText("");
-                txtNumeroColumnas.setText("");
-                txtNumeroFilas.requestFocusInWindow();
-            } else if (nc <=5  || nf <= 5) {
-                Helper.mensaje(this, "Digite un numero mayor para que las letras se puedan observar mejor", 3);
-                txtNumeroFilas.setText("");
-                txtNumeroColumnas.setText("");
-                txtNumeroFilas.requestFocusInWindow();
-            } else if (nc > 13 || nf > 13) {
-                Helper.mensaje(this, "Digite un numero menor para que se puedan observar mejor las letras", 3);
-                txtNumeroFilas.setText("");
-                txtNumeroColumnas.setText("");
-                txtNumeroFilas.requestFocusInWindow();
-            } else if (nf % 2 == 0) {
-                Helper.mensaje(this, "Digite un numero impar para observar mejor las letras", 2);
-                txtNumeroFilas.setText("");
-                txtNumeroColumnas.setText("");
-                txtNumeroFilas.requestFocusInWindow();
-            } else if (nc % 2 == 0) {
-                Helper.mensaje(this, "Digite Un Numero Impar Para Observar Mejor Las Letras", 2);
-                txtNumeroFilas.setText("");
-                txtNumeroColumnas.setText("");
-                txtNumeroFilas.requestFocusInWindow();
-            } else {
-                tm = (DefaultTableModel) tblTablaInicial.getModel();
-                tm2 = (DefaultTableModel) tblTablaResultado.getModel();
+            tm = (DefaultTableModel) tblTablaInicial.getModel();
+            tm2 = (DefaultTableModel) tblTablaResultado.getModel();
 
-                tm.setRowCount(nf);
-                tm.setColumnCount(nc);
+            tm.setRowCount(nf);
+            tm.setColumnCount(nc);
 
-                tm2.setRowCount(nf);
-                tm2.setColumnCount(nc);
+            tm2.setRowCount(nf);
+            tm2.setColumnCount(nc);
 
-                JButton botonesH[] = {cmdLlenarManual, cmdLlenarAutomatico, cmdLimpiar};
-                JButton botonesD[] = {cmdCrear, cmdOperaciones};
-
-                Helper.habilitarBotonoes(botonesH);
-                Helper.deshabilitarBotonoes(botonesD);
-            }
+            JButton botonesH[] = {cmdLlenarAutomatico, cmdLlenarManual, cmdLimpiar};
+            JButton botonesD[] = {cmdCrear, cmdOperaciones};
+            Helper.habilitarBotonoes(botonesH);
+            Helper.deshabilitarBotonoes(botonesD);
         }
     }//GEN-LAST:event_cmdCrearActionPerformed
 
@@ -284,8 +249,8 @@ public class Principal extends javax.swing.JFrame {
                             sw = 1;
                             i = nf;
                             j = nc;
-                            Helper.porDefectoTabla(tblTablaInicial);
-                            Helper.porDefectoTabla(tblTablaResultado);
+                            Helper.limpiadoTabla(tblTablaInicial);
+                            Helper.limpiadoTabla(tblTablaResultado);
 
                         } else {
                             sw = 0;
@@ -344,29 +309,60 @@ public class Principal extends javax.swing.JFrame {
 
         switch (op) {
             case 0:
-                Helper.letraB(tblTablaInicial, tblTablaResultado);
-
+                if ((nf % 2 != 0) && (nf == nc)) {
+                    Helper.letraB(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar la letra B", 3);
+                }
                 break;
             case 1:
-                Helper.letraK(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nf == ((nc * 2) - 3))) {
+                    Helper.letraK(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 2:
-                Helper.letraM(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nf == nc)) {
+                    Helper.letraM(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 3:
-                Helper.letraW(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nf == nc)) {
+                    Helper.letraW(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 4:
-                Helper.letraQ(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nf == nc)) {
+                    Helper.letraQ(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 5:
-                Helper.letraJ(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nf == nc)) {
+                    Helper.letraJ(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 6:
-                Helper.letraG(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 == 0) && (nc == nf - 1)) {
+                    Helper.letraG(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 7:
-                Helper.letraR(tblTablaInicial, tblTablaResultado);
+                if ((nf % 2 != 0) && (nc == nf)) {
+                    Helper.letraR(tblTablaInicial, tblTablaResultado);
+                } else {
+                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
+                }
                 break;
             case 8:
                 Helper.figura1(tblTablaInicial, tblTablaResultado);
