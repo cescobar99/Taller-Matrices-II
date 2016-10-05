@@ -335,7 +335,7 @@ public class Principal extends javax.swing.JFrame {
             Helper.mensaje(this, "Para Que Todas las letras y figruas se vean mejor \n"
                     + "El Numero De Filas Debe Ser Mayor A 5 o Menor O Igual A 13", 2);
         } else if (nc <= 5) {
-            Helper.mensaje(this, "Para Que Todas Las letras i figuras se vean mejor \n"
+            Helper.mensaje(this, "Para Que Todas Las letras y figuras se vean mejor \n"
                     + "El Numero De Columnas Debe Ser Mayor A 5 ", 2);
         } else {
             switch (op) {
@@ -392,7 +392,7 @@ public class Principal extends javax.swing.JFrame {
                     }
                     break;
                 case 8:
-                   if (nf % 2 == 0) {
+                    if (nf % 2 == 0) {
                         Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Impar ", 1);
                     }
                     if (nf != nc) {
@@ -402,7 +402,7 @@ public class Principal extends javax.swing.JFrame {
                     }
                     break;
                 case 9:
-                   if (nf % 2 == 0) {
+                    if (nf % 2 == 0) {
                         Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Impar ", 1);
                     }
                     if (nf != nc) {
