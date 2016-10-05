@@ -200,7 +200,7 @@ public class Helper {
         }
     }
 
-    //Figuras malas. falta corregirlas
+    
     public static void figura1(JTable tabla1, JTable tabla2) {
         int nf, nc, aux;
 
@@ -210,7 +210,7 @@ public class Helper {
         for (int i = 0; i < nf; i++) {
             for (int j = 0; j < nc; j++) {
                 aux = (int) tabla1.getValueAt(i, j);
-                if (i == 0 || i == nf - 1) {
+                if (((i >= j && nf - 1 - i <= j)) || (i <= j) && (nf - 1 - i >= j)) {
                     tabla2.setValueAt(aux, i, j);
                 }
 
@@ -227,7 +227,7 @@ public class Helper {
         for (int i = 0; i < nf; i++) {
             for (int j = 0; j < nc; j++) {
                 aux = (int) tabla1.getValueAt(i, j);
-                if (j == 0 || j == nc - 1) {
+                if (((j >= i && nf - 1 - j <= i)) || (j <= i) && (nf - 1 - j >= i)) {
                     tabla2.setValueAt(aux, i, j);
                 }
 
@@ -244,7 +244,7 @@ public class Helper {
         for (int i = 0; i < nf; i++) {
             for (int j = 0; j < nc; j++) {
                 aux = (int) tabla1.getValueAt(i, j);
-                if (j == 0 || j == nc - 1) {
+                if (i==nf/2 || i== nf/2-1 || j== nc/2 || j== nc/2-1) {
                     tabla2.setValueAt(aux, i, j);
                 }
 
@@ -261,7 +261,7 @@ public class Helper {
         for (int i = 0; i < nf; i++) {
             for (int j = 0; j < nc; j++) {
                 aux = (int) tabla1.getValueAt(i, j);
-                if (i - j == nf / 2 || nf / 2 - i == j || (i + j - 5 == nf) || (i + 6 == j && i + j + 2 <= nf)) {
+                if ((i == j-nf/2) || (nf/2 - i == j) || (nf - i + nf/2-1 == j) || (i == j+nf/2)) {
                     tabla2.setValueAt(aux, i, j);
                 }
 

@@ -198,31 +198,55 @@ public class Principal extends javax.swing.JFrame {
         if (txtNumeroFilas.getText().trim().isEmpty()) {
             Helper.mensaje(this, "Digite número de filas", 3);
             txtNumeroFilas.requestFocusInWindow();
-        } else if (Integer.parseInt(txtNumeroFilas.getText()) == 0) {
-            Helper.mensaje(this, "Número de filas no puede ser cero", 3);
-            txtNumeroFilas.requestFocusInWindow();
         } else if (txtNumeroColumnas.getText().trim().isEmpty()) {
             Helper.mensaje(this, "Digite número de columnas", 3);
-            txtNumeroColumnas.requestFocusInWindow();
-        } else if (Integer.parseInt(txtNumeroColumnas.getText()) == 0) {
-            Helper.mensaje(this, "Número de columnas no puede ser cero", 3);
             txtNumeroColumnas.requestFocusInWindow();
         } else {
             nf = Integer.parseInt(txtNumeroFilas.getText());
             nc = Integer.parseInt(txtNumeroColumnas.getText());
-            tm = (DefaultTableModel) tblTablaInicial.getModel();
-            tm2 = (DefaultTableModel) tblTablaResultado.getModel();
 
-            tm.setRowCount(nf);
-            tm.setColumnCount(nc);
+            if (nf == 0) {
+                Helper.mensaje(this, "El Numero De Filas No Puede Ser Cero", 3);
+                txtNumeroFilas.setText("");
+                txtNumeroColumnas.setText("");
+                txtNumeroFilas.requestFocusInWindow();
+            } else if (nc == 0) {
+                Helper.mensaje(this, "El Numero De Columnas No Puede Ser Cero", 3);
+                txtNumeroFilas.setText("");
+                txtNumeroColumnas.setText("");
+                txtNumeroColumnas.requestFocusInWindow();
+            } else if (nf > 13 && nc > 13) {
+                Helper.mensaje(this, "El Numero De filas y el numero de columnas no pueden ser mayor que 13", 2);
+                txtNumeroFilas.requestFocusInWindow();
+            } else if (nf <= 5 && nc <= 5) {
+                Helper.mensaje(this, "El numero de filas y el numero de columnas deben ser mayor a 5", nc);
+                txtNumeroFilas.requestFocusInWindow();
+            } else {
+                tm = (DefaultTableModel) tblTablaInicial.getModel();
+                tm2 = (DefaultTableModel) tblTablaResultado.getModel();
 
-            tm2.setRowCount(nf);
-            tm2.setColumnCount(nc);
+                tm.setRowCount(nf);
+                tm.setColumnCount(nc);
 
-            JButton botonesH[] = {cmdLlenarAutomatico, cmdLlenarManual, cmdLimpiar};
-            JButton botonesD[] = {cmdCrear, cmdOperaciones};
-            Helper.habilitarBotonoes(botonesH);
-            Helper.deshabilitarBotonoes(botonesD);
+                tm2.setRowCount(nf);
+                tm2.setColumnCount(nc);
+
+                nf = Integer.parseInt(txtNumeroFilas.getText());
+                nc = Integer.parseInt(txtNumeroColumnas.getText());
+                tm = (DefaultTableModel) tblTablaInicial.getModel();
+                tm2 = (DefaultTableModel) tblTablaResultado.getModel();
+
+                tm.setRowCount(nf);
+                tm.setColumnCount(nc);
+
+                tm2.setRowCount(nf);
+                tm2.setColumnCount(nc);
+
+                JButton botonesH[] = {cmdLlenarAutomatico, cmdLlenarManual, cmdLimpiar};
+                JButton botonesD[] = {cmdCrear, cmdOperaciones};
+                Helper.habilitarBotonoes(botonesH);
+                Helper.deshabilitarBotonoes(botonesD);
+            }
         }
     }//GEN-LAST:event_cmdCrearActionPerformed
 
@@ -302,86 +326,113 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_cmdLimpiarActionPerformed
 
     private void cmdOperacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdOperacionesActionPerformed
-        int op;
-
-        op = cmbOperaciones.getSelectedIndex();
+        int op = cmbOperaciones.getSelectedIndex();
+        int nf, nc;
+        nf = Integer.parseInt(txtNumeroFilas.getText());
+        nc = Integer.parseInt(txtNumeroColumnas.getText());
         Helper.limpiadoTabla(tblTablaResultado);
-
-        switch (op) {
-            case 0:
-                if ((nf % 2 != 0) && (nf == nc)) {
-                    Helper.letraB(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar la letra B", 3);
-                }
-                break;
-            case 1:
-                if ((nf % 2 != 0) && (nf == ((nc * 2) - 3))) {
-                    Helper.letraK(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 2:
-                if ((nf % 2 != 0) && (nf == nc)) {
-                    Helper.letraM(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 3:
-                if ((nf % 2 != 0) && (nf == nc)) {
-                    Helper.letraW(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 4:
-                if ((nf % 2 != 0) && (nf == nc)) {
-                    Helper.letraQ(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 5:
-                if ((nf % 2 != 0) && (nf == nc)) {
+        if (nf <= 5 || nf > 13) {
+            Helper.mensaje(this, "Para Que Todas las letras y figruas se vean mejor \n"
+                    + "El Numero De Filas Debe Ser Mayor A 5 o Menor O Igual A 13", 2);
+        } else if (nc <= 5) {
+            Helper.mensaje(this, "Para Que Todas Las letras i figuras se vean mejor \n"
+                    + "El Numero De Columnas Debe Ser Mayor A 5 ", 2);
+        } else {
+            switch (op) {
+                case 0:
+                    if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Letra El Numero De Filas Debe Ser Impar ", 1);
+                    } else {
+                        Helper.letraB(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 1:
+                    if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Letra El Numero De Filas Debe Ser Impar ", 1);
+                    } else {
+                        Helper.letraK(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 2:
+                    if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Letra El Numero de Filas y Numero de Columnas Debe Ser Impar ", 1);
+                    } else if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor La Letra Esta Letra El Numero de Filas y Numero de Columnas Debe Ser Igual ", 1);
+                    } else {
+                        Helper.letraM(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 3:
+                    if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Letra El Numero de Filas y Numero de Columnas Debe Ser Impar ", 1);
+                    } else if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor La Letra ''W'' El Numero de Filas y Numero de Columnas Debe Ser Igual ", 1);
+                    } else {
+                        Helper.letraW(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 4:
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor La Letra Esta Letra El Numero de Filas y Numero de Columnas Debe Ser Igual ", 1);
+                    } else {
+                        Helper.letraQ(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 5:
                     Helper.letraJ(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 6:
-                if ((nf % 2 == 0) && (nc == nf - 1)) {
+                    break;
+                case 6:
                     Helper.letraG(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 7:
-                if ((nf % 2 != 0) && (nc == nf)) {
-                    Helper.letraR(tblTablaInicial, tblTablaResultado);
-                } else {
-                    Helper.mensaje(this, "No se puede realizar esta letra ", 3);
-                }
-                break;
-            case 8:
-                Helper.figura1(tblTablaInicial, tblTablaResultado);
-                break;
-            case 9:
-                Helper.figura2(tblTablaInicial, tblTablaResultado);
-                break;
-            case 10:
-                Helper.figura3(tblTablaInicial, tblTablaResultado);
-                break;
-            case 11:
-                Helper.figura4(tblTablaInicial, tblTablaResultado);
-                break;
+                    break;
+                case 7:
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Letra El Numero de Filas y Numero de Columnas Debe Ser Igual ", 1);
+                    } else {
+                        Helper.letraR(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 8:
+                   if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Impar ", 1);
+                    }
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Igual ", 1);
+                    } else {
+                        Helper.figura1(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 9:
+                   if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Impar ", 1);
+                    }
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Igual ", 1);
+                    } else {
+                        Helper.figura2(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 10:
+                    if (nf % 2 != 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Pares ", 1);
+                    }
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Igual ", 1);
+                    } else {
+                        Helper.figura3(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+                case 11:
+                    if (nf % 2 == 0) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Impares ", 1);
+                    }
+                    if (nf != nc) {
+                        Helper.mensaje(this, "Para Ver Mejor Esta Figura El Numero de Filas y Numero de Columnas Deben Ser Igual ", 1);
+                    } else {
+                        Helper.figura4(tblTablaInicial, tblTablaResultado);
+                    }
+                    break;
+            }
         }
-        JButton botonesH[] = {cmdOperaciones, cmdLimpiar};
-        JButton botonesD[] = {cmdCrear, cmdLlenarManual, cmdLlenarAutomatico};
-
-        Helper.habilitarBotonoes(botonesH);
-        Helper.deshabilitarBotonoes(botonesD);
     }//GEN-LAST:event_cmdOperacionesActionPerformed
 
     private void txtNumeroFilasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumeroFilasActionPerformed
